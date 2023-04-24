@@ -55,9 +55,9 @@ int print_pointer(va_list types, char buffer[],
 /************************* PRINT NON PRINTABLE *************************/
 /**
  * print_non_printable - Prints ascii codes in hexa of non printable chars
- * @types: Lista of arguments
+ * @types: List of arguments
  * @buffer: Buffer array to handle print
- * @flags:  Calculates active flags
+ * @flags:  Calculate active flags
  * @width: get width
  * @precision: Precision specification
  * @size: Size specifier
@@ -121,7 +121,7 @@ int print_reverse(va_list types, char buffer[],
 	{
 		UNUSED(precision);
 
-		str = ")Null(";
+		str = "(Null)";
 	}
 	for (i = 0; str[i]; i++)
 		;
