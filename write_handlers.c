@@ -13,13 +13,13 @@
  * Return: Number of chars printed.
  */
 int handle_write_char(char c, char buffer[],
-	int flags, int gwidth, int gprecision, int gsize)
+	int flags, int width, int precision, int size)
 { /* char is stored at left and paddind at buffer's right */
 	int i = 0;
 	char padd = ' ';
 
-	UNUSED(gprecision);
-	UNUSED(gsize);
+	UNUSED(precision);
+	UNUSED(size);
 
 	if (flags & F_ZERO)
 		padd = '0';
@@ -27,17 +27,17 @@ int handle_write_char(char c, char buffer[],
 	buffer[i++] = c;
 	buffer[i] = '\0';
 
-	if (gwidth > 1)
+	if (width > 1)
 	{
 		buffer[BUFF_SIZE - 1] = '\0';
-		for (i = 0; i < gwidth - 1; i++)
+		for (i = 0; i < width - 1; i++)
 			buffer[BUFF_SIZE - i - 2] = padd;
 
 		if (flags & F_MINUS)
 			return (write(1, &buffer[0], 1) +
-					write(1, &buffer[BUFF_SIZE - i - 1], gwidth - 1));
+					write(1, &buffer[BUFF_SIZE - i - 1], width - 1));
 		else
-			return (write(1, &buffer[BUFF_SIZE - i - 1], gwidth - 1) +
+			return (write(1, &buffer[BUFF_SIZE - i - 1], width - 1) +
 					write(1, &buffer[0], 1));
 	}
 
@@ -51,19 +51,19 @@ int handle_write_char(char c, char buffer[],
  * @ind: char types.
  * @buffer: Buffer array to handle print
  * @flags:  Calculates active flags
- * @gwidth: get width.
- * @gprecision: precision specifier
- * @gsize: Size specifier
+ * @width: get width.
+ * @precision: precision specifier
+ * @size: Size specifier
  *
  * Return: Number of chars printed.
  */
 int write_number(int is_negative, int ind, char buffer[],
-	int flags, int gwidth, int pgrecision, int gsize)
+	int flags, int width, int precision, int size)
 {
 	int length = BUFF_SIZE - ind - 1;
 	char padd = ' ', extra_ch = 0;
 
-	UNUSED(gsize);
+	UNUSED(size);
 
 	if ((flags & F_ZERO) && !(flags & F_MINUS))
 		padd = '0';
@@ -74,7 +74,7 @@ int write_number(int is_negative, int ind, char buffer[],
 	else if (flags & F_SPACE)
 		extra_ch = ' ';
 
-	return (write_num(ind, buffer, flags, gwidth, gprecision,
+	return (write_num(ind, buffer, flags, width, precision,
 		length, padd, extra_ch));
 }
 
@@ -250,4 +250,3 @@ int write_pointer(char buffer[], int ind, int length,
 		buffer[--ind] = extra_c;
 	return (write(1, &buffer[ind], BUFF_SIZE - ind - 1));
 }
-
