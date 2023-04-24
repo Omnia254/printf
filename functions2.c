@@ -18,18 +18,18 @@ int print_pointer(va_list types, char buffer[],
 	int indent = BUFF_SIZE - 2, length = 2, padd_start = 1; /* length=2, for '0x' */
 	unsigned long n_address;
 	char map_chars[] = "0123456789abcdef";
-	void *address = va_arg(types, void *);
+	void *addrs = va_arg(types, void *);
 
 	UNUSED(width);
 	UNUSED(size);
 
-	if (address == NULL)
+	if (addrs == NULL)
 		return (write(1, "(nil)", 5));
 
 	buffer[BUFF_SIZE - 1] = '\0';
 	UNUSED(precision);
 
-	n_address = (unsigned long)address;
+	n_address = (unsigned long)addrs;
 
 	while (n_address > 0)
 	{
